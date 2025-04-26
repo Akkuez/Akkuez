@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Seonyeon ❤️</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ffe6e6, #ffe9f0);
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    .container {
+      text-align: center;
+      padding: 30px 15px;
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center; /* Changed to center content vertically */
+      align-items: center;
+      z-index: 1;
+    }
+
+    .title {
+      font-family: 'Great Vibes', cursive;
+      font-size: 40px;
+      color: #ff6b6b;
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
+
+    .content-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex-grow: 1;
+      width: 100%;
+    }
+
+    .page {
+      display: none;
+      font-size: 18px;
+      color: #333;
+      padding: 20px;
+      background: white;
+      margin: 20px auto;
+      border-radius: 20px;
+      max-width: 500px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 0.8s;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .navigation {
+      margin: 40px 0; /* Adjusted margin */
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      position: relative;
+      bottom: 0;
+    }
+
+    .nav-btn {
+      background: #ff6b6b;
+      border: none;
+      border-radius: 50%;
+      width: 55px;
+      height: 55px;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .nav-btn:hover {
+      background: #ff3c3c;
+    }
+
+    .signature {
+      font-family: 'Great Vibes', cursive;
+      font-size: 26px;
+      color: #d23669;
+      margin-top: 30px;
+    }
+
+    /* Pop-ups */
+    .pop-up {
+      position: absolute;
+      width: 220px;
+      height: 170px;
+      background-image: url('https://media1.tenor.com/m/_iNtJEYFXAQAAAAd/hugs-and-kisses-hugs.gif');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      border: 2px solid #ff6b6b;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 8px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      text-align: center;
+      overflow: hidden;
+      backdrop-filter: blur(3px);
+      z-index: 9999;
+      animation: popAppear 0.5s ease;
+      touch-action: none;
+      cursor: move;
+    }
+
+    .pop-up-text {
+      background: rgba(255, 255, 255, 0.7);
+      padding: 5px 10px;
+      border-radius: 10px;
+      margin-top: 50px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 5px;
+      right: 7px;
+      background: #ff6b6b;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      font-size: 10px;
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+
+    /* Heart falling effect */
+    .heart {
+      position: fixed;
+      top: -10px;
+      font-size: 20px;
+      color: #ff6b6b;
+      animation: fall 5s linear infinite;
+      z-index: 0;
+    }
+
+    /* Game Window */
+    #gameWindow {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 300px;
+      height: 400px;
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      z-index: 9998;
+      display: none;
+      padding: 20px;
+      backdrop-filter: blur(5px);
+      border: 2px solid #ff6b6b;
+    }
+
+    #gameContent {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .close-game {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #ff6b6b;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 25px;
+      height: 25px;
+      cursor: pointer;
+    }
+
+    /* Game Elements */
+    #gameScore {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #ff6b6b;
+      font-weight: bold;
+    }
+
+    #gameTimer {
+      font-size: 18px;
+      margin-bottom: 15px;
+      color: #ff6b6b;
+      font-weight: bold;
+    }
+
+    #gameTarget {
+      font-size: 40px;
+      position: absolute;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(100vh) rotate(360deg); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes popAppear {
+      0% { transform: scale(0); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* Mobile adjustments */
+    @media (max-width: 600px) {
+      .title {
+        font-size: 32px;
+      }
+
+      .page {
+        font-size: 16px;
+        padding: 15px;
+        max-width: 90%;
+      }
+
+      .signature {
+        font-size: 22px;
+      }
+
+      .nav-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+      }
+
+      .pop-up {
+        width: 200px;
+        height: 150px;
+      }
+
+      .pop-up-text {
+        font-size: 12px;
+      }
+
+      #gameWindow {
+        width: 280px;
+        height: 380px;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+<div class="container">
+  <div class="title">Seonyeon ❤️</div>
+  
+  <div class="content-wrapper">
+    <div id="page1" class="page active">
+      <p>I miss you, I am waiting for you ❤️</p>
+      <p>I may not be able to hold you in my arms right now, but I hold you in my heart every minute, every day. 💖</p>
+    </div>
+
+    <div id="page2" class="page">
+      <p>I showed you a side of me that no one had ever seen before. 🌸<br>
+      I treated you like I've never treated anyone else.<br>
+      For you, I tried to be who I've never been for anyone.<br>
+      I did it only for you, because you were the one person I felt was "different" from the world. 🌹</p>
+
+      <div class="signature">Your lovely Vishnu💕</div>
+    </div>
+
+    <div class="navigation">
+      <button class="nav-btn" onclick="prevPage()">⮜</button>
+      <button class="nav-btn" onclick="nextPage()">⮞</button>
+      <button class="nav-btn" onclick="popUpMessages()">💌</button>
+      <button class="nav-btn" onclick="openGameWindow()">🎮</button>
+    </div>
+  </div>
+</div>
+
+<!-- Game Window -->
+<div id="gameWindow">
+  <button class="close-game" onclick="closeGameWindow()">X</button>
+  <div id="gameContent">
+    <div id="gameScore">❤️ Score: 0</div>
+    <div id="gameTimer">⏱️ Time: 30</div>
+    <div id="gameTarget">❤️</div>
+  </div>
+</div>
+
+<!-- Elfsight Audio Player -->
+<script src="https://static.elfsight.com/platform/platform.js" async></script>
+<div class="elfsight-app-9c05c733-357e-4296-b572-81576f6254f4" data-elfsight-app-lazy></div>
+
+<script>
+  // Page navigation
+  let currentPage = 1;
+  const totalPages = 2;
+
+  function nextPage() {
+    if (currentPage < totalPages) {
+      document.getElementById(`page${currentPage}`).classList.remove('active');
+      currentPage++;
+      document.getElementById(`page${currentPage}`).classList.add('active');
+    }
+  }
+
+  function prevPage() {
+    if (currentPage > 1) {
+      document.getElementById(`page${currentPage}`).classList.remove('active');
+      currentPage--;
+      document.getElementById(`page${currentPage}`).classList.add('active');
+    }
+  }
+
+  // Popup messages
+  function popUpMessages() {
+    const messages = [
+      'Miss you baby 💖',
+      'Miss you yaar 💞',
+      'Text me, I am waiting 💬',
+      'Love youuu so much 😘',
+      'Can\'t wait to see you 😍'
+    ];
+
+    messages.forEach(message => {
+      const popUp = document.createElement('div');
+      popUp.classList.add('pop-up');
+
+      popUp.style.left = `${Math.random() * 70 + 10}%`;
+      popUp.style.top = `${Math.random() * 70 + 10}%`;
+
+      const closeBtn = document.createElement('button');
+      closeBtn.classList.add('close-btn');
+      closeBtn.innerHTML = 'X';
+      closeBtn.onclick = () => popUp.remove();
+
+      const popUpText = document.createElement('div');
+      popUpText.classList.add('pop-up-text');
+      popUpText.innerHTML = `${message}`;
+
+      popUp.appendChild(closeBtn);
+      popUp.appendChild(popUpText);
+      document.body.appendChild(popUp);
+
+      // Make it draggable
+      makeDraggable(popUp);
+    });
+  }
+
+  function makeDraggable(element) {
+    let posX = 0, posY = 0, mouseX = 0, mouseY = 0;
+    element.onmousedown = dragMouseDown;
+
+    function dragMouseDown(e) {
+      e.preventDefault();
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      document.onmouseup = closeDragElement;
+      document.onmousemove = elementDrag;
+    }
+
+    function elementDrag(e) {
+      e.preventDefault();
+      posX = mouseX - e.clientX;
+      posY = mouseY - e.clientY;
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      element.style.top = (element.offsetTop - posY) + "px";
+      element.style.left = (element.offsetLeft - posX) + "px";
+    }
+
+    function closeDragElement() {
+      document.onmouseup = null;
+      document.onmousemove = null;
+    }
+  }
+
+  // Game functionality
+  let gameScore = 0;
+  let gameTime = 30;
+  let gameActive = false;
+  let gameTimer;
+  let targetMoveInterval;
+
+  function openGameWindow() {
+    document.getElementById('gameWindow').style.display = 'block';
+    startGame();
+  }
+
+  function closeGameWindow() {
+    document.getElementById('gameWindow').style.display = 'none';
+    endGame();
+  }
+
+  function startGame() {
+    gameScore = 0;
+    gameTime = 30;
+    gameActive = true;
+    
+    document.getElementById('gameScore').textContent = '❤️ Score: 0';
+    document.getElementById('gameTimer').textContent = '⏱️ Time: 30';
+    
+    // Position target randomly
+    moveTarget();
+    
+    // Start timer
+    gameTimer = setInterval(() => {
+      gameTime--;
+      document.getElementById('gameTimer').textContent = `⏱️ Time: ${gameTime}`;
+      
+      if (gameTime <= 0) {
+        endGame();
+        alert(`awww baby you got ${gameScore} ❤️`);
+      }
+    }, 1000);
+    
+    // Move target every 1.5 seconds
+    targetMoveInterval = setInterval(moveTarget, 1500);
+    
+    // Add click event to target
+    document.getElementById('gameTarget').onclick = function() {
+      if (gameActive) {
+        gameScore++;
+        document.getElementById('gameScore').textContent = `❤️ Score: ${gameScore}`;
+        this.style.transform = 'scale(1.5)';
+        setTimeout(() => {
+          this.style.transform = 'scale(1)';
+          moveTarget();
+        }, 200);
+      }
+    };
+  }
+
+  function moveTarget() {
+    if (!gameActive) return;
+    
+    const gameArea = document.getElementById('gameContent');
+    const target = document.getElementById('gameTarget');
+    
+    const maxX = gameArea.clientWidth - target.clientWidth;
+    const maxY = gameArea.clientHeight - target.clientHeight - 50; // Account for score/timer
+    
+    const randomX = Math.floor(Math.random() * maxX);
+    const randomY = Math.floor(Math.random() * maxY) + 50; // Start below score/timer
+    
+    target.style.left = randomX + 'px';
+    target.style.top = randomY + 'px';
+  }
+
+  function endGame() {
+    gameActive = false;
+    clearInterval(gameTimer);
+    clearInterval(targetMoveInterval);
+    document.getElementById('gameTarget').onclick = null;
+  }
+
+  // Falling hearts
+  setInterval(() => {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.fontSize = Math.random() * 10 + 20 + 'px';
+    heart.innerHTML = '❤️';
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 5000);
+  }, 500);
+</script>
+
+</body>
+</html>

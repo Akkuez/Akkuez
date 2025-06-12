@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="landing-container fade-in">
+    <div class="hero-section">
+        <div class="logo animate-bounce">
+            <i class="fas fa-robot"></i>
+        </div>
+        <h1>Buddy AI Assistant</h1>
+        <p class="subtitle">Your friendly AI companion ready to help with anything</p>
+        
+        <div class="login-form">
+            <input type="text" id="username" placeholder="Enter your name to start chatting">
+            <button id="start-chat" class="btn-pulse">Start Chatting <i class="fas fa-arrow-right"></i></button>
+        </div>
+    </div>
+    
+    <div class="features">
+        <div class="feature-card slide-in-left">
+            <i class="fas fa-comment-dots"></i>
+            <h3>Natural Conversations</h3>
+            <p>Chat like you would with a human friend</p>
+        </div>
+        <div class="feature-card slide-in-bottom">
+            <i class="fas fa-brain"></i>
+            <h3>Smart Responses</h3>
+            <p>Powered by advanced AI technology</p>
+        </div>
+        <div class="feature-card slide-in-right">
+            <i class="fas fa-history"></i>
+            <h3>Remembered Context</h3>
+            <p>Keeps track of your conversation history</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

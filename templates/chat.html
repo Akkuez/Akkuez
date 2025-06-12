@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="chat-container">
+    <header class="chat-header">
+        <div class="header-content">
+            <div class="bot-avatar">
+                <i class="fas fa-robot"></i>
+            </div>
+            <h2>Buddy AI</h2>
+            <span class="username">@{{ username }}</span>
+        </div>
+        <a href="{{ url_for('logout') }}" class="logout-btn">
+            <i class="fas fa-sign-out-alt"></i>
+        </a>
+    </header>
+    
+    <div class="chat-messages" id="chat-messages">
+        <!-- Messages will be loaded here via JavaScript -->
+    </div>
+    
+    <div class="chat-input-container">
+        <div class="typing-indicator" id="typing-indicator">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <input type="text" id="message-input" placeholder="Type your message here...">
+        <button id="send-btn"><i class="fas fa-paper-plane"></i></button>
+    </div>
+</div>
+{% endblock %}

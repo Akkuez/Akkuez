@@ -1,0 +1,55 @@
+/* Animations */
+.fade-in {
+    animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.slide-in-left {
+    animation: slideInLeft 0.8s ease-out;
+}
+
+@keyframes slideInLeft {
+    from { transform: translateX(-50px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+.slide-in-right {
+    animation: slideInRight 0.8s ease-out;
+}
+
+@keyframes slideInRight {
+    from { transform: translateX(50px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+.slide-in-bottom {
+    animation: slideInBottom 0.8s ease-out;
+}
+
+@keyframes slideInBottom {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.animate-bounce {
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-20px); }
+    60% { transform: translateY(-10px); }
+}
+
+.message-animation {
+    animation: messageAppear 0.3s ease-out;
+}
+
+@keyframes messageAppear {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}

@@ -1,0 +1,6 @@
+Flask==2.0.1
+langchain-ollama==0.1.0
+langchain-core==0.1.0
+sqlite3
+python-dotenv
+openai

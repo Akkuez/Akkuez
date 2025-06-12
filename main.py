@@ -10,7 +10,7 @@ app.config['DATABASE'] = 'database.db'
 # OpenRouter API setup with your key
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
-    api_key="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"
+    api_key=""
 )
 
 # Function to get bot response using Gemma
